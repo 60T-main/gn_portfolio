@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import type { PageProps } from "../props/Props";
 import { fadeBodyBackground } from "../utils/BodyFade.ts";
 import ProjectDetail from "./ProjectDetail.tsx";

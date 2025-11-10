@@ -1,6 +1,4 @@
-import React from "react";
 import type { ProjectDetailProps } from "../props/Props";
-import type { Project } from "../types/Project";
 import { Pages } from "./enums/pages";
 
 export default function ProjectDetail({

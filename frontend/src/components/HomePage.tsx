@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Pages } from "./enums/pages";
 import type { PageProps } from "../props/Props";
 import { fadeBodyBackground } from "../utils/BodyFade";
