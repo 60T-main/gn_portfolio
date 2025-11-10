@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import type { PageProps } from "../props/Props";
-import { fadeBodyBackground } from "../utils/BodyFade.ts";
-import ProjectDetail from "./ProjectDetail.tsx";
+import { Pages } from "./enums/pages.tsx";
+import { usePageContext } from "../hooks/PageStates.tsx";
 
 export default function ProjectsPage({ setPage }: PageProps) {
   const SCOPE = import.meta.env.VITE_SCOPE;
@@ -9,6 +9,7 @@ export default function ProjectsPage({ setPage }: PageProps) {
   const [projectsList, setProjectsList] = useState<any[]>([]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { setProject } = usePageContext();
 
   const getProjects = async () => {
     setIsLoading(true);
@@ -38,18 +39,26 @@ export default function ProjectsPage({ setPage }: PageProps) {
     getProjects();
   }, []);
 
-  useEffect(() => {
-    if (projectsList[0] && projectsList[0].img_url) {
-      fadeBodyBackground(projectsList[0].img_url);
-    }
-  }, [projectsList]);
-
   return (
     <div className="screen-parent">
       {isLoading ? (
         <div className="loader"></div>
       ) : projectsList && projectsList.length > 0 ? (
-        <ProjectDetail setPage={setPage} project={projectsList[0]} />
+        <div className="projects-parent">
+          {projectsList.map((project, i) => (
+            <div
+              key={i}
+              className="project-card"
+              onClick={() => {
+                console.log("Setting project in context:", project);
+                setProject(project);
+                setPage(Pages.project);
+              }}
+            >
+              <div className="project-name">{project.title}</div>
+            </div>
+          ))}
+        </div>
       ) : errorMessage ? (
         <>
           <div className="error-message">failed to connect to server...</div>

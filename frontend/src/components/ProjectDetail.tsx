@@ -1,10 +1,22 @@
-import type { ProjectDetailProps } from "../props/Props";
+import { useEffect } from "react";
+import type { ProjectDetailProps } from "../props/Props.tsx";
 import { Pages } from "./enums/pages";
+import { fadeBodyBackground } from "../utils/BodyFade.ts";
 
 export default function ProjectDetail({
   setPage,
   project,
 }: ProjectDetailProps) {
+  useEffect(() => {
+    if (project && project.img_url) {
+      fadeBodyBackground(project.img_url);
+    }
+  }, []);
+
+  useEffect(() => {
+    console.log("project:", project);
+  }, [project]);
+
   return (
     <div className="project-parent flex flex-col gap-5 mt-12">
       <div className="text-6xl text-center font-bold">{project.title}</div>
@@ -39,7 +51,7 @@ export default function ProjectDetail({
             }}
             className="text-6xl bg-gray-500 py-6 px-20 rounded-4xl cursor-pointer"
           >
-            ← Home
+            ← Back
           </button>
         </div>
       </div>

@@ -5,6 +5,8 @@ import * as THREE from "three";
 import { Pages } from "./enums/pages";
 import HomePage from "./HomePage";
 import ProjectsPage from "./ProjectsPage";
+import ProjectDetail from "./ProjectDetail";
+import { usePageContext } from "../hooks/PageStates";
 
 function IphoneModel() {
   const { nodes, scene } = useGLTF("/iphone.glb") as any;
@@ -14,6 +16,8 @@ function IphoneModel() {
   const [page, setPage] = useState(Pages.home);
 
   const [showHtml, setShowHtml] = useState(true);
+
+  const { project } = usePageContext();
 
   const rotationRef = useRef<THREE.Mesh>(null!);
 
@@ -40,6 +44,8 @@ function IphoneModel() {
     }
   });
 
+  console.log("Current project in context:", project);
+
   return (
     <group>
       <primitive object={scene} scale={30} position={[0, -3, 0]} />
@@ -59,6 +65,9 @@ function IphoneModel() {
           >
             {page === Pages.home && <HomePage setPage={setPage} />}
             {page === Pages.projects && <ProjectsPage setPage={setPage} />}
+            {page === Pages.project && Object.keys(project).length > 0 && (
+              <ProjectDetail setPage={setPage} project={project} />
+            )}
           </Html>
         </mesh>
       )}

@@ -5,5 +5,5 @@ export interface Project {
     techStack: string[];
     link: string;
     status: "completed" | "developing";
-        img_url: string;
+    img_url: string;
 }

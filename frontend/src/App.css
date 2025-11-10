@@ -16,6 +16,7 @@ body{
 .screen{
   @apply opacity-100;
 }
+
 .screen.hide {
   opacity: 0;
   pointer-events: none;
@@ -25,20 +26,33 @@ body{
   @apply absolute h-420 w-220 left-1/2 top-65 transform -translate-x-1/2 -translate-y-1/2 
 }
 
-
 .buttons-div{
   @apply w-full flex justify-center absolute bottom-10;
 }
+
 .button-div{
   @apply animate-pulse;
 }
-
-
 
 .error-message{
   @apply text-5xl text-red-500 text-center
 }
 
+
+
+/* Projects Page */
+
+.projects-parent{
+  @apply flex flex-col ml-12 gap-12
+}
+
+.project-card{
+  @apply cursor-pointer;
+}
+
+.project-name{
+  @apply text-5xl
+}
 
 
 /* loading spinner */
@@ -110,9 +124,9 @@ body{
 body {
   position: relative;
   transition: background 0.3s;
-    background-size: contain;
-      background-position: center top;
-      background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center top;
+  background-repeat: no-repeat;
 }
 
 body::after {
