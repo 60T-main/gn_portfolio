@@ -1,4 +1,4 @@
-import { ContactMessage } from '../src/types/ContactMessage.js';
+import { ContactMessage } from '../src/types/ContactMessage';
 import nodemailer from 'nodemailer';
 
 
@@ -6,6 +6,16 @@ import { VercelRequest, VercelResponse } from '@vercel/node';
 
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+    // CORS headers for cross-origin requests from the frontend
+    const allowedOrigin = 'https://gn-portfolio-frontend.vercel.app';
+    res.setHeader('Access-Control-Allow-Origin', allowedOrigin);
+    res.setHeader('Access-Control-Allow-Methods', 'POST,OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+    if (req.method === 'OPTIONS') {
+        // Preflight request
+        return res.status(204).end();
+    }
 
     if (req.method !== "POST") {
   return res.status(405).json({ success: false, message: "Method Not Allowed" });

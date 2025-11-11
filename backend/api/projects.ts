@@ -1,9 +1,24 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
 
-import {Project} from '../src/types/Project'
+import { Project } from '../src/types/Project';
 
 
 export default function handler(req: VercelRequest, res: VercelResponse) {
+  // CORS headers for cross-origin requests from the frontend
+  const allowedOrigin = 'https://gn-portfolio-frontend.vercel.app';
+  res.setHeader('Access-Control-Allow-Origin', allowedOrigin);
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  if (req.method === 'OPTIONS') {
+    // Preflight request
+    return res.status(204).end();
+  }
+
+  if (req.method !== 'GET') {
+    return res.status(405).json({ message: 'Method Not Allowed' });
+  }
+
   const projects: Project[] = [
 {    title: "SHISHI | Official website",
     description: "I designed and developed the official website for SHISHI, an independent music label known for its clean groundbreaking underground discography. The project focused on creating a minimal, high‑impact digital presence that reflects the brand’s identity while ensuring a smooth user experience.",
