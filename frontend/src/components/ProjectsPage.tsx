@@ -25,9 +25,11 @@ export default function ProjectsPage({
 
   const getProjects = async () => {
     setIsLoading(true);
-    const endpoint = "/projects";
+    const endpoint = "/api/projects";
     try {
-      const response = await fetch(SCOPE + endpoint);
+      const response = await fetch(SCOPE + endpoint, {
+        headers: { Accept: "application/json" },
+      });
 
       if (!response.ok) {
         console.error("failed to fetch data");
