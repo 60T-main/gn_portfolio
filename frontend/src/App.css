@@ -23,11 +23,11 @@ body{
 }
 
 .screen-parent {
-  @apply absolute h-420 w-220 left-1/2 top-65 transform -translate-x-1/2 -translate-y-1/2 
+  @apply absolute h-420 w-220 left-1/2 top-65 transform -translate-x-1/2 -translate-y-1/2 gap-5;
 }
 
 .buttons-div{
-  @apply w-full flex justify-center absolute bottom-10;
+  @apply w-full flex justify-center absolute bottom-12;
 }
 
 .button-div{
@@ -36,6 +36,30 @@ body{
 
 .error-message{
   @apply text-5xl text-red-500 text-center
+}
+
+/* iphone header */
+
+.iphone-header{
+  @apply absolute z-1 bottom-158 -left-100 w-200 flex justify-between px-8 items-center 
+}
+
+.time-logo{
+  @apply text-4xl;
+}
+
+.battery-wifi{
+  @apply flex
+}
+
+.battery-wifi img{
+  @apply w-15
+}
+
+/* Home */
+
+.button{
+  @apply text-6xl bg-gray-500 py-6 px-20 rounded-4xl cursor-pointer
 }
 
 
@@ -47,11 +71,30 @@ body{
 }
 
 .project-card{
-  @apply cursor-pointer;
+  @apply cursor-pointer flex justify-around items-center gap-12;
 }
 
 .project-name{
-  @apply text-5xl
+  @apply text-5xl w-130
+}
+.project-img{
+  @apply w-40
+}
+
+
+
+/* Project Detail */
+
+.buttons-detail-div{
+  @apply absolute bottom-7 w-full
+}
+
+.button-detail-div{
+  @apply flex justify-center items-center;
+}
+
+.button-detail{
+  @apply text-6xl bg-gray-500 py-6 px-20 rounded-4xl cursor-pointer;
 }
 
 
@@ -123,28 +166,10 @@ body{
 
 body {
   position: relative;
-  transition: background 0.3s;
+  transition: background 0.1s;
   background-size: contain;
   background-position: center top;
   background-repeat: no-repeat;
-}
-
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.7s;
-  background-size: contain;
-  background-position: center top;
-  background-repeat: no-repeat;
-  background-image: var(--after-bg);
-}
-
-body.fade-bg::after {
-  opacity: 1;
 }
 
 /* fonts */

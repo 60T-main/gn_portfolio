@@ -17,7 +17,7 @@ export default function HomePage({ setPage }: PageProps) {
   }, []);
 
   useEffect(() => {
-    fadeBodyBackground("none");
+    fadeBodyBackground(null);
   }, []);
 
   return (
@@ -64,7 +64,7 @@ export default function HomePage({ setPage }: PageProps) {
             onClick={() => {
               setPage(Pages.projects);
             }}
-            className="text-6xl bg-gray-500 py-6 px-20 rounded-4xl cursor-pointer"
+            className="button"
           >
             Projects →
           </button>

@@ -26,7 +26,7 @@ const projects: Project[] = [
     techStack: ["React","Next.js","Three.js", "PostgreSQL", "Javascript", "HTML5","TailwindCSS"],
         link: "https://ceyo.netlify.app/",
         status: "developing",
-    img_url: "https://res.cloudinary.com/dbfitrtz5/image/upload/v1762526473/Screenshot_2025-11-03_164327_cukyvb.png",
+    img_url: "https://res.cloudinary.com/dbfitrtz5/image/upload/v1762859296/logo_i1puov.png",
     },
 ];
 

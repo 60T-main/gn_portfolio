@@ -13,26 +13,22 @@ export default function ProjectDetail({
     }
   }, []);
 
-  useEffect(() => {
-    console.log("project:", project);
-  }, [project]);
-
   return (
-    <div className="project-parent flex flex-col gap-5 mt-12">
-      <div className="text-6xl text-center font-bold">{project.title}</div>
-      <div className={`text-4xl font-bold text-center `}>
+    <div className="screen-parent">
+      <div className="text-6xl text-center font-bold mb-4">{project.title}</div>
+      <div className={`text-4xl font-bold text-center mb-4`}>
         status:{" "}
         <span
           className={`${
-            project.status == "completed" ? "text-green-500" : "text-orange-500"
+            project.status == "completed" ? "text-green-500" : "text-yellow-500"
           }`}
         >
           {project.status}
         </span>
       </div>
       <div className="text-3xl text-center font-bold">{project.timeline}</div>
-      <div className="text-5xl p-14">{project.description}</div>
-      <div className="text-5xl p-14">
+      <div className="text-5xl px-14 mt-8">{project.description}</div>
+      <div className="text-5xl px-14 mt-8">
         <span className="font-bold">tech stack:</span>
         <div className="pt-4 flex flex-col gap-1">
           {project.techStack.map((stack: any) => (
@@ -40,16 +36,16 @@ export default function ProjectDetail({
           ))}
         </div>
       </div>
-      <div className="text-5xl px-14">
+      <div className="text-5xl px-14 mt-8">
         link: <a href={project.link}>{project.link}</a>
       </div>
-      <div className="buttons-div">
-        <div className="button-div">
+      <div className="buttons-detail-div">
+        <div className="button-detail-div">
           <button
             onClick={() => {
-              setPage(Pages.home);
+              setPage(Pages.projects);
             }}
-            className="text-6xl bg-gray-500 py-6 px-20 rounded-4xl cursor-pointer"
+            className="button-detail"
           >
             ← Back
           </button>

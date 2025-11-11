@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useGLTF, OrbitControls, Html } from "@react-three/drei";
 import * as THREE from "three";
@@ -6,7 +6,8 @@ import { Pages } from "./enums/pages";
 import HomePage from "./HomePage";
 import ProjectsPage from "./ProjectsPage";
 import ProjectDetail from "./ProjectDetail";
-import { usePageContext } from "../hooks/PageStates";
+import type { Project } from "../types/Project";
+import IphoneHeader from "./IphoneHeader";
 
 function IphoneModel() {
   const { nodes, scene } = useGLTF("/iphone.glb") as any;
@@ -17,7 +18,7 @@ function IphoneModel() {
 
   const [showHtml, setShowHtml] = useState(true);
 
-  const { project } = usePageContext();
+  const [projectPage, setProjectPage] = useState<Project | null>(null);
 
   const rotationRef = useRef<THREE.Mesh>(null!);
 
@@ -44,8 +45,6 @@ function IphoneModel() {
     }
   });
 
-  console.log("Current project in context:", project);
-
   return (
     <group>
       <primitive object={scene} scale={30} position={[0, -3, 0]} />
@@ -63,11 +62,17 @@ function IphoneModel() {
             position={[0, 0, 0.1]}
             className={`screen ${!showHtml ? "hide" : ""}`}
           >
+            <IphoneHeader page={page} />
             {page === Pages.home && <HomePage setPage={setPage} />}
-            {page === Pages.projects && <ProjectsPage setPage={setPage} />}
-            {page === Pages.project && Object.keys(project).length > 0 && (
-              <ProjectDetail setPage={setPage} project={project} />
+            {page === Pages.projects && (
+              <ProjectsPage setPage={setPage} setProjectPage={setProjectPage} />
             )}
+            {page === Pages.project &&
+              projectPage &&
+              typeof projectPage === "object" &&
+              Object.keys(projectPage).length > 0 && (
+                <ProjectDetail setPage={setPage} project={projectPage} />
+              )}
           </Html>
         </mesh>
       )}
