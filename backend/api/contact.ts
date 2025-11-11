@@ -1,24 +1,33 @@
-import app from "./server.js";
-import cors from 'cors';
-
-import { ContactMessage } from './types/ContactMessage.js';
+import { ContactMessage } from '../src/types/ContactMessage.js';
 import nodemailer from 'nodemailer';
-import dotenv from 'dotenv';
-
-dotenv.config();
 
 
-app.use(cors({
-  origin: "https://gn-portfolio-frontend.vercel.app"
-}));
+import { VercelRequest, VercelResponse } from '@vercel/node';
 
 
+export default async function handler(req: VercelRequest, res: VercelResponse) {
 
+    if (req.method !== "POST") {
+  return res.status(405).json({ success: false, message: "Method Not Allowed" });
+}
 
+    const message: ContactMessage = req.body;
 
+    if (!message.name || !message.email || !message.message) {
+  return res.status(400).json({ success: false, message: "All fields are required." });
+}
 
+    const result = await sendMail(message);
+    const parsed = JSON.parse(result);
+    
+    if (parsed.success) {
+        res.status(201).json(parsed);
+    } else {
+        res.status(500).json(parsed);
+    }
+}
 
-const sendMail = async (message: ContactMessage) => {
+    const sendMail = async (message: ContactMessage) => {
     try {
         const transporter = nodemailer.createTransport({
             service: 'gmail',
@@ -46,28 +55,4 @@ const sendMail = async (message: ContactMessage) => {
         }
 
     }
-}
-
-app.post('/contact', async (req, res)=> {
-    const message: ContactMessage = req.body;
-
-if (!message.name || !message.email || !message.message) {
-  return res.status(400).json({ success: false, message: "All fields are required." });
-}
-
-    const result = await sendMail(message);
-    const parsed = JSON.parse(result);
-    
-    if (parsed.success) {
-        res.status(201).json(parsed);
-    } else {
-        res.status(500).json(parsed);
     }
-})
-
-app.listen(8000, () => {
-    console.log("Server is running on: localhost:8000 ");
-})
-
-
-
