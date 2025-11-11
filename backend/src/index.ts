@@ -8,7 +8,9 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 
-app.use(cors());
+app.use(cors({
+  origin: "https://gn-portfolio-frontend.vercel.app"
+}));
 
 
 const projects: Project[] = [
