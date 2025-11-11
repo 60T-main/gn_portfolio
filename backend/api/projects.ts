@@ -4,9 +4,12 @@ import { Project } from '../src/types/Project';
 
 
 export default function handler(req: VercelRequest, res: VercelResponse) {
-  // CORS headers for cross-origin requests from the frontend
-  const allowedOrigin = 'https://gn-portfolio-frontend.vercel.app';
-  res.setHeader('Access-Control-Allow-Origin', allowedOrigin);
+const allowedOrigins = ['https://gn-portfolio-frontend.vercel.app', 'http://localhost:5173'];
+    const origin = req.headers.origin;
+    console.log("Request Origin:", req.headers.origin);
+if (typeof origin === 'string' && allowedOrigins.includes(origin)) {
+  res.setHeader('Access-Control-Allow-Origin', origin);
+}
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
